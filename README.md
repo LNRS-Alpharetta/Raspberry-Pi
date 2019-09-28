@@ -51,7 +51,6 @@ HPCC Conference Raspberry Pi competition project
     1. detect_labels
     1. detect_text
 1. store labels and counts to DynamoDB
-    1. lambda triggered
     1. JavaScript generated on stats
     1. website updated with graph and photo booth
 1. speaker emits voice of what is analyzed
