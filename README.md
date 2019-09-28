@@ -2,6 +2,9 @@
 
 HPCC Conference Raspberry Pi competition project
 
+## Architecture
+![Architecture](/img/architecture.png)
+
 ## Hardware
 
 ### Stores
@@ -20,11 +23,11 @@ HPCC Conference Raspberry Pi competition project
   - LED/visual dial for confidence threshold
 - purchased
   - Raspberry PI - [$45.00] 
-  - case - $6.99
-  - power adapter - $7.99
-  - camera - $21.99
-  - HDMI to micro-HDMI adapter - $5.00
-  - Lego for jar - 2 colors - $0.00
+  - case - $7.99
+  - power adapter - $9.99
+  - camera - $24.99
+  - HDMI to micro-HDMI adapter - $12.99
+  - 32 GB memory card - $4.99
  
 ## AWS Services
 - Rekognition
@@ -101,7 +104,7 @@ HPCC Conference Raspberry Pi competition project
 ## If we have time
 - light source inside jar - led, rgb
 - physical dial for confidence threshold
-  - LED display % value [30%]
+  - LCD display % value [30%]
   - other visual representation of threshold gauges
     - thermometer - cylinder fill
     - rating meter
