@@ -60,13 +60,11 @@ HPCC Conference Raspberry Pi competition project
 ## Tasks
 - direct and film video [GR]
 - write screenplay for video [GR][JC]
-- metric visualization [AS]
-  - lambda function
-    - triggered on DynamoDB insert  
-    - dump the table to static JavaScript
-    - bar charts on data frequency
-    - other visualizations of the data collected
-    - copy JavaScript to S3
+- metric visualization [AS] 
+  - dump the table to static JavaScript
+  - bar charts on data frequency
+  - other visualizations of the data collected
+  - copy JavaScript to S3
 - website [AS][SM]
   - configure S3 bucket for static hosting
   - open web gateway to S3 bucket
