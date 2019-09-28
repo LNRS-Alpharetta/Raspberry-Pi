@@ -8,7 +8,7 @@ while True:
     # capture picture from camera
     # save picture to /tmp/image.jpg
     # upload picture to S3
-    # storage.upload("./img/image.png")
+    storage.upload("./img/image.png")
     # delete /tmp/image.jpg
     # call rekognition apis [faces][celebs][labels][text]
     rekognition.detect(90)
