@@ -13,7 +13,6 @@ key = '{}.{}'.format('image', ext)
 def upload(img):
     print("uploading image to S3...")
     s3_client.upload_file(Filename=img, Bucket=bucket, Key=key)
-    print("upload complete")
 
 
 def delete():

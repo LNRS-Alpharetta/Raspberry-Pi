@@ -1,7 +1,12 @@
 import rekognition
+import database
 import storage
 
+ct = 90
+
 while True:
+    # init
+    celebrity = []
     # speaker will emit a ready signal when the system is initialized
     # object is triggered by a mechanical action - button push
     # speaker emits a countdown
@@ -10,12 +15,24 @@ while True:
     # upload picture to S3
     storage.upload("./img/image.png")
     # delete /tmp/image.jpg
-    # call rekognition apis [faces][celebs][labels][text]
-    rekognition.detect(90)
+    # call rekognition apis
+    # Step 1. Are there faces in the image?
+    face = rekognition.detect_faces(ct)
+    if face:
+        database.insert_labels(face)
+        # Step 2. Is the picture of a celebrity?
+        celebrity = rekognition.recognize_celebrities()
+        if celebrity:
+            database.insert_label(celebrity[0])
+    # Step 3. What else is in the picture?
+    labels = rekognition.detect_labels(ct)
+    if labels:
+        database.insert_labels(labels)
+    # Step 4. Are there words?
+    lines = rekognition.detect_text(ct)
     # archive working file in bucket root
     storage.archive()
-    # store labels and counts to DynamoDB
-    #   JavaScript generated on stats
-    #   website updated with graph and photo booth
+    # JavaScript generated on stats
+    # website updated with graph and photo booth
     # speaker emits voice of what is analyzed
     break

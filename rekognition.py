@@ -4,87 +4,92 @@ import storage
 client = boto3.client('rekognition')
 
 
-def detect(ct):
-    # Step 1. Are there faces in the image?
-    if detect_faces(ct):
-        # Step 2. Is the picture of a celebrity?
-        recognize_celebrities()
-    # Step 3. What else is in the picture?
-    detect_labels(ct)
-    # Step 4. Are there words?
-    detect_text(ct)
-
-
-def detect_faces(ct) -> bool:
+def detect_faces(ct) -> []:
     # img - name of image on disk
     # ct  - confidence threshold for API
+    labels = []
     print("looking for a face...")
-    print(storage.bucket)
     result = client.detect_faces(
         Image=dict(S3Object={'Bucket': storage.bucket, 'Name': storage.key}),
         Attributes=['ALL'])
     faces = result['FaceDetails']
     if faces:
-        print("faces found:", len(faces))
-        for face in faces:
-            check_str(face, 'Gender', ct)
-            ages = face['AgeRange']
-            print("between the ages of", ages['Low'], "and", ages['High'])
-            check_bool(face, 'Smile', 'smiling', ct)
-            check_bool(face, 'Eyeglasses', 'wearing eyeglasses', ct)
-            check_bool(face, 'Sunglasses', 'wearing sunglasses', ct)
-            check_bool(face, 'Beard', 'has a beard', ct)
-            check_bool(face, 'Mustache', 'has a mustache', ct)
-            check_bool(face, 'EyesOpen', 'eyes are open', ct)
-            check_bool(face, 'MouthOpen', 'mouth is open', ct)
-            emotions = face['Emotions']
-            if emotions:
-                print('feeling...')
-                for emotion in emotions:
-                    if emotion['Confidence'] > ct:
-                        print(emotion['Type'].lower())
-        return True
-    return False
+        # only do the first face to keep it simple
+        face = faces[0]
+        check_str(labels, face, 'Gender', ct)
+        ages = face['AgeRange']
+        labels.append("{} < age < {}".format(ages['Low'], ages['High']))
+        check_bool(labels, face, 'Smile', ct)
+        check_bool(labels, face, 'Eyeglasses', ct)
+        check_bool(labels, face, 'Sunglasses', ct)
+        check_bool(labels, face, 'Beard', ct)
+        check_bool(labels, face, 'Mustache', ct)
+        check_bool(labels, face, 'EyesOpen', ct)
+        check_bool(labels, face, 'MouthOpen', ct)
+        emotions = face['Emotions']
+        if emotions:
+            for emotion in emotions:
+                if emotion['Confidence'] > ct:
+                    labels.append(emotion['Type'].lower())
+    print(labels)
+    return labels
 
 
-def recognize_celebrities():
+def recognize_celebrities() -> []:
+    labels = []
     print("checking for celebrity...")
     result = client.recognize_celebrities(
         Image=dict(S3Object={'Bucket': storage.bucket, 'Name': storage.key}))
-    for celebrity in result['CelebrityFaces']:
-        print("Name: {} [{}%]".format(celebrity['Name'], celebrity['MatchConfidence']))
-        # TODO: scrape the URL for IMDB data
+    celebrities = result['CelebrityFaces']
+    if celebrities:
+        # only do the first celebrity to keep it simple
+        celebrity = celebrities[0]
+        labels.append(celebrity['Name'])
+        labels.append(celebrity['MatchConfidence'])
+        for url in celebrity['Urls']:
+            labels.append(url)
+    print(labels)
+    return labels
 
 
-def detect_labels(ct):
+def detect_labels(ct) -> []:
+    labels = []
     print('detecting labels...')
     result = client.detect_labels(
         Image=dict(S3Object={'Bucket': storage.bucket, 'Name': storage.key}))
-    labels = result['Labels']
-    for label in labels:
+    for label in result['Labels']:
         if label['Confidence'] >= ct:
-            print(label['Name'])
+            labels.append(label['Name'])
+    print(labels)
+    return labels
 
 
-def detect_text(ct):
+def detect_text(ct) -> []:
+    lines = []
     print('detecting text...')
     result = client.detect_text(
         Image=dict(S3Object={'Bucket': storage.bucket, 'Name': storage.key}))
-    detections = result['TextDetections']
-    for text in detections:
+    for text in result['TextDetections']:
         if text['Type'] == 'LINE' and text['Confidence'] > ct:
-            print(text['DetectedText'])
+            lines.append(text['DetectedText'])
+    if not lines:
+        line = ""
+        for text in result['TextDetections']:
+            if text['Type'] == 'WORD' and text['Confidence'] > ct:
+                line += " " + text['DetectedText']
+    print(lines)
+    return lines
 
 
 # Check String Attribute
-def check_str(struct, attr, ct):
+def check_str(labels, struct, attr, ct):
     attribute = struct[attr]
     if attribute['Confidence'] > ct:
-        print(attribute['Value'].lower())
+        labels.append(attribute['Value'].lower())
 
 
 # Check Boolean Attribute
-def check_bool(struct, attr, msg, ct):
+def check_bool(labels, struct, attr, ct):
     attribute = struct[attr]
     if attribute['Value'] and attribute['Confidence'] > ct:
-        print(msg)
+        labels.append(attr)
