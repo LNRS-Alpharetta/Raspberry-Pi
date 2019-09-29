@@ -5,6 +5,19 @@ HPCC Conference Raspberry Pi competition project
 ## Architecture
 ![Architecture](/img/architecture.png)
 
+## Running
+
+This application uses Python 3. You should not be using Python 2 anymore, EOL 2020.
+
+There are many ways to setup AWS credentials, most typical is environment variables and .aws/config files. Credentials are expected to already be sourced.
+
+Required pip modules
+- boto3
+
+```python
+> python main.py
+```
+
 ## Hardware
 
 ### Stores
@@ -33,7 +46,6 @@ HPCC Conference Raspberry Pi competition project
 - Rekognition
 - Polly
 - DynamoDB
-- Lambda
 - Route 53
 - S3
 
