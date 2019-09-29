@@ -84,22 +84,31 @@ HPCC Conference Raspberry Pi competition project
   - check for focus api calls
 - wire button [MV]
 - code to interact with mechanical button and GPIO pinout [MV]
-- GitHub [JC]
-  - setup group and project
+- GitHub
   - upload pilot code to GitHub 
-    - api calls
-    - motion sensor code (from old RaspPi)
-  - add readme page
+    - motion sensor code (from old RaspPi) [JC]
 - setup init.d auto-run of main.py [JC]
 - code to emit signal on main script start [JC]
 - assemble main.py with nested while loops [JC]
-- code to call detect_text [JC]
-- update code to make api calls using uploaded S3 image
-- upload image to S3 bucket [JC]
+
+
 - DynamoDB [JC]
   - key: label or attribute
   - value: counter
   - code to insert data
+
+### Completed Tasks
+- ~~GitHub~~
+  - ~~setup organization and project~~
+  - ~~upload pilot code to GitHub~~ 
+    - ~~api calls~~
+  - ~~add readme page~~
+- ~~upload image to S3 bucket~~
+- ~~archive working image file~~
+- ~~move to img dir with random name~~
+- ~~upload image to S3 bucket~~
+- ~~code to call detect_text~~
+- ~~update code to make api calls using uploaded S3 image~~
             
 ## If we have time
 - light source inside jar - led, rgb
