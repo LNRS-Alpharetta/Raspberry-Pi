@@ -19,19 +19,19 @@ while True:
     # Step 1. Are there faces in the image?
     face = rekognition.detect_faces(ct)
     if face:
-        database.insert_labels(face)
+        database.increment_label_counts(face)
         # Step 2. Is the picture of a celebrity?
         celebrity = rekognition.recognize_celebrities()
         if celebrity:
-            database.insert_label(celebrity[0])
+            database.increment_label_count(celebrity[0])
     # Step 3. What else is in the picture?
     labels = rekognition.detect_labels(ct)
     if labels:
-        database.insert_labels(labels)
+        database.increment_label_counts(labels)
     # Step 4. Are there words?
     lines = rekognition.detect_text(ct)
     # archive working file in bucket root
-    storage.archive()
+    # storage.archive()
     # JavaScript generated on stats
     # website updated with graph and photo booth
     # speaker emits voice of what is analyzed
