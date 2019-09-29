@@ -14,7 +14,7 @@ There are many ways to setup AWS credentials, most typical is environment variab
 Required pip modules
 - boto3
 
-```python
+```
 > python main.py
 ```
 
@@ -60,14 +60,13 @@ Required pip modules
 1. save picture to /tmp/image.jpg
 1. upload picture to S3
 1. delete /tmp/image.jpg
-1. call apis
+1. call apis and store label counts
     1. detect_faces
     1. recognize_celebrities
     1. detect_labels
     1. detect_text
-1. store labels and counts to DynamoDB
-    1. JavaScript generated on stats
-    1. website updated with graph and photo booth
+1. JavaScript generated on stats
+1. website updated with graph and photo booth
 1. speaker emits voice of what is analyzed
 1. return script to ready state
 
