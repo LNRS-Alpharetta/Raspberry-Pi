@@ -102,12 +102,6 @@ Required pip modules
 - code to emit signal on main script start [JC]
 - assemble main.py with nested while loops [JC]
 
-
-- DynamoDB [JC]
-  - key: label or attribute
-  - value: counter
-  - code to insert data
-
 ### Completed Tasks
 - ~~GitHub~~
   - ~~setup organization and project~~
@@ -120,6 +114,10 @@ Required pip modules
 - ~~upload image to S3 bucket~~
 - ~~code to call detect_text~~
 - ~~update code to make api calls using uploaded S3 image~~
+- ~~DynamoDB~~
+  - ~~key: label or attribute~~
+  - ~~value: counter~~
+  - ~~code to update counts~~            
             
 ## If we have time
 - light source inside jar - led, rgb
