@@ -6,7 +6,7 @@ client = boto3.client('rekognition')
 
 def detect_faces(ct) -> []:
     # ct  - confidence threshold for API
-    # returns a list of faces found, includes all attributes found
+    # returns a list of faces found, includes all attributes
     # appends the word 'face' as a delimiter
     # example: ['face','male','age 23-35','face','female','age 35-45]']
     labels = []
@@ -58,6 +58,7 @@ def recognize_celebrities() -> []:
 
 
 def detect_labels(ct) -> []:
+    # ct  - confidence threshold for API
     # returns a list of labels found over the given confidence threshold
     # example: ['Person','Human','Shoe']
     labels = []
@@ -72,6 +73,7 @@ def detect_labels(ct) -> []:
 
 
 def detect_text(ct) -> []:
+    # ct  - confidence threshold for API
     # detects text and returns if over the given confidence threshold
     lines = []
     print('detecting text...')
