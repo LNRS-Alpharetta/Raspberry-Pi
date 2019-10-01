@@ -5,6 +5,16 @@ HPCC Conference Raspberry Pi competition project
 ## Architecture
 ![Architecture](/img/architecture.png)
 
+## AWS Resources
+
+Create the S3 buckets and the DynamoDB instance using Terraform. 
+The file main.tf defines the cloud infrastructure needed.
+
+```
+> terraform plan
+> terraform apply
+```
+
 ## Running
 
 This application uses Python 3. You should not be using Python 2 anymore, EOL 2020.

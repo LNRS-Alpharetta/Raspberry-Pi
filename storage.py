@@ -4,9 +4,10 @@ import uuid
 s3_client = boto3.client('s3')
 s3_resource = boto3.resource('s3')
 
+key = 'image'
+# repeated in main.tf
 archive_dir = 'img'
 bucket = 'lnrs-alpharetta'
-key = 'image'
 
 
 def upload(img):
@@ -23,5 +24,5 @@ def archive():
     filename = str(uuid.uuid4())
     s3_resource.Object(bucket_name=bucket, key='{}/{}'.format(archive_dir, filename)).copy_from(
         CopySource='{}/{}'.format(bucket, key))
-    delete()
+    # delete()
     print("archive complete")
