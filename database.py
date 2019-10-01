@@ -3,7 +3,7 @@ import boto3
 db = boto3.client('dynamodb')
 
 
-def increment_label_count(label):
+def inc_label(label):
     db.update_item(
         TableName='raspberry-pi-camera',
         Key={'label': {'S': label}},
@@ -12,7 +12,7 @@ def increment_label_count(label):
         ExpressionAttributeValues={':count': {'N': '1', }, })
 
 
-def increment_label_counts(labels):
+def inc(labels):
     if labels:
         for label in labels:
-            increment_label_count(label)
+            inc_label(label)

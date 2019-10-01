@@ -6,8 +6,7 @@ s3_resource = boto3.resource('s3')
 
 archive_dir = 'img'
 bucket = 'lnrs-alpharetta'
-ext = 'png'
-key = '{}.{}'.format('image', ext)
+key = 'image'
 
 
 def upload(img):
@@ -22,7 +21,7 @@ def delete():
 def archive():
     print("archiving image...")
     filename = str(uuid.uuid4())
-    s3_resource.Object(bucket_name=bucket, key='{}/{}.{}'.format(archive_dir, filename, ext)).copy_from(
+    s3_resource.Object(bucket_name=bucket, key='{}/{}'.format(archive_dir, filename)).copy_from(
         CopySource='{}/{}'.format(bucket, key))
     delete()
     print("archive complete")
