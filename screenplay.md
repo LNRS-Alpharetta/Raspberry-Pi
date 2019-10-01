@@ -1,9 +1,18 @@
 # Video Contest Screenplay
 
+## Concept - Images from conference
+- Take many pictures during conference
+- The video will incorporate the pictures
+  - have a placeholder in a video template
+  - computer vision api to assist?
+  - demonstrate bounding boxes and attributes
+    - like in the marketing materials
+  - overlay pictures with labels and stickers
+
 ## Concept - Anesidora's Jar
 - Pandora's Box
   - Anesidora is an epithet meaning "sender of gifts" given to several Greek goddesses, including Pandora
-  - Greek [pithos] (jar) translated into Latin [pyxis] (box)  
+  - Greek [pithos] (jar) mis-translated into Latin [pyxis] (box)  
   - four sides of the physical jar
     - symbol to represent Pandora - Box
     - symbol to represent Gaia - Earth

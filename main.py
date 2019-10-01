@@ -2,7 +2,7 @@ import rekognition
 import database
 import storage
 
-ct = 50
+ct = 10
 
 while True:
     # init
@@ -20,7 +20,7 @@ while True:
     if face:
         database.inc(face)
         # Step 2. Is the picture of a celebrity?
-        celebrity = rekognition.recognize_celebrities()
+        celebrity = rekognition.recognize_celebrities(ct)
         if celebrity:
             database.inc(celebrity)
     # Step 3. What else is in the picture?

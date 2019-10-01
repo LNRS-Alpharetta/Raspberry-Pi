@@ -17,10 +17,10 @@ def detect_faces(ct) -> []:
     faces = result['FaceDetails']
     if faces:
         for face in faces:
-            labels.append('face')
+            labels.append('Face')
             check_str(labels, face, 'Gender', ct)
             ages = face['AgeRange']
-            labels.append("age {}-{}".format(ages['Low'], ages['High']))
+            labels.append("Age {}-{}".format(ages['Low'], ages['High']))
             check_bool(labels, face, 'Smile', ct)
             check_bool(labels, face, 'Eyeglasses', ct)
             check_bool(labels, face, 'Sunglasses', ct)
@@ -32,15 +32,16 @@ def detect_faces(ct) -> []:
             if emotions:
                 for emotion in emotions:
                     if emotion['Confidence'] > ct:
-                        labels.append(emotion['Type'].lower())
+                        labels.append(emotion['Type'].capitalize())
     print(labels)
     return labels
 
 
-def recognize_celebrities() -> []:
-    # returns a list of celebrities found, includes confidence score and any Urls
+def recognize_celebrities(ct) -> []:
+    # ct  - confidence threshold for API
+    # returns a list of celebrities found, including any Urls
     # appends the word 'celebrity' as a delimiter
-    # example: ['celebrity','John Lennon',95.0,'celebrity','George Harrison', 87.0]
+    # example: ['celebrity','John Lennon','www.imdb.com/lennon','celebrity','George Harrison']
     labels = []
     print("checking for celebrity...")
     result = client.recognize_celebrities(
@@ -48,11 +49,11 @@ def recognize_celebrities() -> []:
     celebrities = result['CelebrityFaces']
     if celebrities:
         for celebrity in celebrities:
-            labels.append('celebrity')
-            labels.append(celebrity['Name'])
-            labels.append(celebrity['MatchConfidence'])
-            for url in celebrity['Urls']:
-                labels.append(url)
+            if celebrity['MatchConfidence'] > ct:
+                labels.append('Celebrity')
+                labels.append(celebrity['Name'])
+                for url in celebrity['Urls']:
+                    labels.append(url)
     print(labels)
     return labels
 
@@ -90,7 +91,7 @@ def detect_text(ct) -> []:
 def check_str(labels, struct, attr, ct):
     attribute = struct[attr]
     if attribute['Confidence'] > ct:
-        labels.append(attribute['Value'].lower())
+        labels.append(attribute['Value'].capitalize())
 
 
 # Check Boolean Attribute
