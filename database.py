@@ -3,6 +3,7 @@ import boto3
 db = boto3.client('dynamodb')
 
 
+# "raspberry-pi-camera" repeated in main.tf
 def inc_label(label):
     db.update_item(
         TableName='raspberry-pi-camera',

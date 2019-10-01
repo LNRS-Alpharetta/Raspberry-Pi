@@ -16,4 +16,13 @@ resource "aws_s3_bucket_object" "lnrs-alpharetta-img" {
     depends_on = [aws_s3_bucket.lnrs-alpharetta]
 }
 
-# Add DynamoDB
+resource "aws_dynamodb_table" "raspberry-pi-camera" {
+  name           = "raspberry-pi-camera"
+  read_capacity  = 5
+  write_capacity = 5
+  hash_key       = "label"
+  attribute {
+    name = "label"
+    type = "S"
+  }
+}

@@ -106,5 +106,11 @@ venv.bak/
 # IDEA
 .idea/
 
+# Mac
 .DS_Store
 img/.DS_Store
+
+# Terraform
+terraform.tfstate
+terraform.tfstate.backup
+.terraform/
