@@ -1,5 +1,45 @@
 # Video Contest Screenplay
 
+# Three minutes max
+
+## Concept - Try as many as possible in 3 min
+- show many use cases for this tech
+- competitions 
+  - recognizing emotions
+  - Wikipedia contest
+- simple use cases like the feedback machine
+- decorated pictures
+- positive/negative bots
+- Advertisement/Infomercial styles
+
+
+## Two PI+Cameras? Three?
+
+## Concept - Multiple Bot Experiments
+- Demonstrate two identical devices
+  - device 1 will be a positive bot
+    - friendly and cheerful
+    - empathetic
+    - gives lavish praise
+    - asks them their name and uses it
+    - complements everything
+  - device 2 will be a negative bot
+    - unfriendly and gloomy
+    - narcissistic
+    - slings insults
+    - calls them by someone else's name
+    - complains about everything
+  - use one bot with a positive/negative toggle 
+
+
+## PI + iPad
+- competition with Wikipedia
+  - show a random Wikipedia page with an image
+  - who is better at identifying what's in the image
+  - bot vs bot (with different thresholds)
+  - bot vs human
+
+    
 ## Concept - Images from conference
 - Take many pictures during conference
 - The video will incorporate the pictures

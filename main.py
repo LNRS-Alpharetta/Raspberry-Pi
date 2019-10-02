@@ -1,38 +1,47 @@
 import rekognition
-import database
 import storage
+import database
 
-ct = 10
+
+ct = 50
+
 
 while True:
     # init
-    celebrity = []
+    celeb_result = None
+    celeb_labels = []
     # speaker will emit a ready signal when the system is initialized
     # object is triggered by a mechanical action - button push
     # speaker emits a countdown
     # capture picture from camera
     # save picture to /tmp/image
     # upload picture to S3
-    storage.upload("./img/image4")
+    s3 = storage.upload("./img/image4")
     # call rekognition apis
     # Step 1. Are there faces in the image?
-    face = rekognition.detect_faces(ct)
-    if face:
-        database.inc(face)
+    face_result = rekognition.detect_faces_api(s3)
+    face_labels = rekognition.get_face_labels(face_result, ct)
+    if face_labels:
+        database.inc(face_labels)
         # Step 2. Is the picture of a celebrity?
-        celebrity = rekognition.recognize_celebrities(ct)
-        if celebrity:
-            database.inc(celebrity)
-    # Step 3. What else is in the picture?
-    labels = rekognition.detect_labels(ct)
+        celeb_result = rekognition.detect_celebrities_api(s3)
+        celeb_labels = rekognition.get_celebrity_labels(celeb_result, ct)
+        if celeb_labels:
+            database.inc(celeb_labels)
+    # Step 3. Are there words?
+    text_result = rekognition.detect_text_api(s3)
+    text_labels = rekognition.get_text_labels(text_result, ct)
+    # Step 4. What else is in the picture?
+    label_result = rekognition.detect_labels_api(s3)
+    labels = rekognition.get_labels(label_result, ct)
     if labels:
         database.inc(labels)
-    # Step 4. Are there words?
-    lines = rekognition.detect_text(ct)
-    # archive working file in bucket root
-    storage.archive()
     # delete local /tmp/image.jpg
     # JavaScript generated on stats
     # website updated with graph and photo booth
     # speaker emits voice of what is analyzed
+    print(face_labels)
+    print(celeb_labels)
+    print(text_labels)
+    print(labels)
     break

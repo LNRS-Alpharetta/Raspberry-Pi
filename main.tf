@@ -3,26 +3,38 @@
 # --------------------------------
 provider "aws" {}
 
-resource "aws_s3_bucket" "lnrs-alpharetta" {
-  bucket = "lnrs-alpharetta"
+variable "image_bucket" {
+    description = "The AWS S3 bucket for the uploaded images, and for the current working image"
+    type        = "string"
+}
+
+variable "website_bucket" {
+    description = "The AWS S3 bucket to host the statistics website"
+    type        = "string"
+}
+
+variable "stats_table" {
+    description = "The AWS DynamoDB table name for stats"
+    type        = "string"
+}
+
+variable "stats_key" {
+    description = "The AWS DynamoDB table primary key for stats"
+    type        = "string"
+}
+
+resource "aws_s3_bucket" b1 {
+  bucket = var.image_bucket
   acl    = "private"
 }
 
-resource "aws_s3_bucket_object" "lnrs-alpharetta-img" {
-    bucket     = "lnrs-alpharetta"
-    acl        = "private"
-    key        = "img/"
-    source     = "/dev/null"
-    depends_on = [aws_s3_bucket.lnrs-alpharetta]
-}
-
-resource "aws_dynamodb_table" "raspberry-pi-camera" {
-  name           = "raspberry-pi-camera"
+resource "aws_dynamodb_table" t1 {
+  name           = var.stats_table
   read_capacity  = 5
   write_capacity = 5
-  hash_key       = "label"
+  hash_key       = var.stats_key
   attribute {
-    name = "label"
+    name = var.stats_key
     type = "S"
   }
 }

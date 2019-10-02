@@ -1,13 +1,13 @@
 import boto3
+import vars
 
 db = boto3.client('dynamodb')
 
 
-# "raspberry-pi-camera" repeated in main.tf
 def inc_label(label):
     db.update_item(
-        TableName='raspberry-pi-camera',
-        Key={'label': {'S': label}},
+        TableName=vars.get('stats_table'),
+        Key={vars.get('stats_key'): {'S': label}},
         UpdateExpression='ADD #count :count',
         ExpressionAttributeNames={'#count': 'count'},
         ExpressionAttributeValues={':count': {'N': '1', }, })
