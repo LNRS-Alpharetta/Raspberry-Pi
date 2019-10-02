@@ -98,8 +98,7 @@ def get_labels(result, ct) -> []:
     for label in result['Labels']:
         if label['Confidence'] >= ct:
             labels.append(label['Name'])
-    # TODO: remove "Face" from list
-    return labels
+    return labels.remove("Face")
 
 
 def check_str(labels, struct, attr, ct):
