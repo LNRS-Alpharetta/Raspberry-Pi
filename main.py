@@ -16,7 +16,7 @@ while True:
     # capture picture from camera
     # save picture to /tmp/image
     # upload picture to S3
-    s3 = storage.upload("./img/image4")
+    s3 = storage.upload("./img/image")
     # call rekognition apis
     # Step 1. Are there faces in the image?
     face_result = rekognition.detect_faces_api(s3)
