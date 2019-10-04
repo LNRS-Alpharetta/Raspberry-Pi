@@ -52,8 +52,7 @@ def get_celebrity_labels(result, ct) -> []:
     # result  - result from the API call
     # ct  - confidence threshold to limit return values
     # returns a list of celebrities found
-    # appends the word 'celebrity' as a delimiter
-    # example: ['celebrity','John Lennon','celebrity','George Harrison']
+    # example: ['John Lennon','Paul McCartney','George Harrison']
     labels = []
     celebrities = result['CelebrityFaces']
     if celebrities:
@@ -61,7 +60,6 @@ def get_celebrity_labels(result, ct) -> []:
             if celebrity['MatchConfidence'] > ct:
                 labels.append('Celebrity')
                 labels.append(celebrity['Name'])
-
     return labels
 
 
@@ -98,7 +96,9 @@ def get_labels(result, ct) -> []:
     for label in result['Labels']:
         if label['Confidence'] >= ct:
             labels.append(label['Name'])
-    return labels.remove("Face")
+    if labels.count('Face') > 0:
+        labels.remove("Face")
+    return labels
 
 
 def check_str(labels, struct, attr, ct):

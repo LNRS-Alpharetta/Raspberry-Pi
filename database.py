@@ -3,6 +3,8 @@ import vars
 
 db = boto3.client('dynamodb')
 
+# add timestamp and confidence score to database
+
 
 def inc_label(label):
     db.update_item(
