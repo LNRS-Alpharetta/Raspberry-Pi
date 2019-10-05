@@ -3,12 +3,12 @@ import storage
 import database
 import draw
 import gpiozero
-import time
 
 ct = 50
 image_file = '/tmp/image'
 button = gpiozero.Button(17)
 
+print("ready...")
 while True:
     # speaker will emit a ready signal when the system is initialized
     # init
