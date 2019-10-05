@@ -3,13 +3,14 @@ import storage
 import database
 import draw
 import gpiozero
+import picamera
 import time
 
 ct = 50
 image_file = '/tmp/image'
 button = gpiozero.Button(17)
 
-print("ready...")
+print("system ready...")
 while True:
     # speaker will emit a ready signal when the system is initialized
     # init
@@ -19,6 +20,8 @@ while True:
     if button.is_pressed:
         # speaker emits a countdown
         # capture picture from camera
+        camera = PiCamera()
+        camera.capture('/tmp/image')
         # save picture to /tmp/image
         # upload picture to S3
         s3 = storage.upload(image_file)
