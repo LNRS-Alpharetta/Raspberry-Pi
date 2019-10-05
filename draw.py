@@ -1,15 +1,21 @@
 from PIL import Image, ImageDraw, ImageFont
+import platform
 
+
+font_lib = None
 font_size = 30
-font_lib = '/Library/Fonts/Arial.ttf'
-arial30 = ImageFont.truetype(font_lib, font_size)
+if platform.system() == 'Darwin':
+    font_lib = '/Library/Fonts/Arial.ttf'
+else:
+    font_lib = '/usr/share/fonts/truetype/droid'
+label_font = ImageFont.truetype(font_lib, font_size)
 
 
 def load_image(image_file) -> Image:
     return Image.open(image_file)
 
 
-def annotate_image(image, face, text, text_left=4, text_top=4, font=arial30,
+def annotate_image(image, face, text, text_left=4, text_top=4, font=label_font,
                    font_color='white', line_color='lightgreen'):
     img_width, img_height = image.size
     draw = ImageDraw.Draw(image)

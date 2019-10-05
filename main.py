@@ -6,7 +6,7 @@ import gpiozero
 import time
 
 ct = 50
-image_file = './img/image5'
+image_file = '/tmp/image'
 button = gpiozero.Button(17)
 
 while True:
@@ -16,7 +16,6 @@ while True:
     # speaker will emit a ready signal when the system is initialized
     # object is triggered by a mechanical action - button push
     if button.is_pressed:
-        print("Pressed")
         # speaker emits a countdown
         # capture picture from camera
         # save picture to /tmp/image
