@@ -3,6 +3,7 @@ import storage
 import database
 import draw
 import gpiozero
+import time
 
 ct = 50
 image_file = '/tmp/image'
@@ -55,3 +56,4 @@ while True:
         print(celeb_labels)
         print(text_labels)
         print(labels)
+    time.sleep(0.2)
