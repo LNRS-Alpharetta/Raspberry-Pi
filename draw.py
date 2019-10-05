@@ -2,16 +2,15 @@ from PIL import Image, ImageDraw, ImageFont
 
 font_size = 30
 font_lib = '/Library/Fonts/Arial.ttf'
-font = ImageFont.truetype(font_lib, font_size)
-font_color = 'white'
-line_color = 'lightgreen'
+arial30 = ImageFont.truetype(font_lib, font_size)
 
 
 def load_image(image_file) -> Image:
     return Image.open(image_file)
 
 
-def annotate_image(image, face, text):
+def annotate_image(image, face, text, text_left=4, text_top=4, font=arial30,
+                   font_color='white', line_color='lightgreen'):
     img_width, img_height = image.size
     draw = ImageDraw.Draw(image)
     box = face['BoundingBox']
@@ -24,12 +23,17 @@ def annotate_image(image, face, text):
         (left, top + height), (left, top))
     draw.line(points, fill=line_color, width=2)
     if text:
-        draw.text((left + 4, top + 4), text, font=font, fill=font_color)
+        draw.text((left + text_left, top + text_top), text, font=font, fill=font_color)
 
 
 def annotate_faces(image, face_result):
     for face in face_result['FaceDetails']:
-        annotate_image(image, face, None)
+        emotions = face['Emotions']
+        if emotions:
+            for emotion in emotions:
+                if emotion['Confidence'] > 90:
+                    annotate_image(image, face, emotion['Type'],
+                                   font_color='white', text_top=-30)
 
 
 def annotate_celebs(image, celeb_result):
@@ -47,3 +51,11 @@ def annotate_labels(image, label_result):
             if instances:
                 for instance in instances:
                     annotate_image(image, instance, label['Name'])
+
+
+def annotate_text(image, text_result):
+    labels = text_result['TextDetections']
+    if labels:
+        for label in labels:
+            text = label['Geometry']
+            annotate_image(image, text, None, line_color='black')
