@@ -7,7 +7,7 @@ font_size = 30
 if platform.system() == 'Darwin':
     font_lib = '/Library/Fonts/Arial.ttf'
 else:
-    font_lib = '/usr/share/fonts/truetype/droid'
+    font_lib = '/usr/share/fonts/truetype/droid/DroidSansFallbackFull.tff'
 label_font = ImageFont.truetype(font_lib, font_size)
 
 
