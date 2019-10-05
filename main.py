@@ -10,10 +10,10 @@ image_file = '/tmp/image'
 button = gpiozero.Button(17)
 
 while True:
+    # speaker will emit a ready signal when the system is initialized
     # init
     celeb_result = None
     celeb_labels = []
-    # speaker will emit a ready signal when the system is initialized
     # object is triggered by a mechanical action - button push
     if button.is_pressed:
         # speaker emits a countdown
@@ -55,4 +55,3 @@ while True:
         print(celeb_labels)
         print(text_labels)
         print(labels)
-    time.sleep(0.2)
