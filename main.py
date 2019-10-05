@@ -7,11 +7,12 @@ import picamera
 import time
 
 ct = 50
-image_file = '/tmp/image'
+image_file = '/tmp/image.jpg'
 button = gpiozero.Button(17)
 
 print("system ready...")
 while True:
+    print("working...")
     # speaker will emit a ready signal when the system is initialized
     # init
     celeb_result = None
@@ -20,9 +21,8 @@ while True:
     if button.is_pressed:
         # speaker emits a countdown
         # capture picture from camera
-        camera = PiCamera()
-        camera.capture('/tmp/image')
-        # save picture to /tmp/image
+        camera = picamera.PiCamera()
+        camera.capture(image_file)
         # upload picture to S3
         s3 = storage.upload(image_file)
         # call rekognition apis
