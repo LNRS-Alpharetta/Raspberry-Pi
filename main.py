@@ -12,13 +12,13 @@ button = gpiozero.Button(17)
 
 print("system ready...")
 while True:
-    print("working...")
     # speaker will emit a ready signal when the system is initialized
     # init
     celeb_result = None
     celeb_labels = []
     # object is triggered by a mechanical action - button push
     if button.is_pressed:
+        print("working...")
         # speaker emits a countdown
         # capture picture from camera
         camera = picamera.PiCamera()
