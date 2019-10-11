@@ -62,8 +62,7 @@ def get_celebrity_labels(result, ct) -> []:
         for celebrity in celebrities:
             confidence = celebrity['MatchConfidence']
             database.insert_trend(confidence)
-            if confidence > ct:
-                labels.append(celebrity['Name'])
+            labels.append(celebrity['Name'])
     return labels
 
 
