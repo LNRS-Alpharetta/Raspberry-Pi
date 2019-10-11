@@ -4,11 +4,13 @@ import audio
 polly = boto3.Session().client('polly')
 voice = 'Joanna'
 file = '/tmp/temp.mp3'
-list_length = 5
 
 
-def speak(labels):
+def speak(labels, limit=True):
     word_string = ""
+    list_length = 5
+    if not limit:
+        list_length = len(labels)
     for word in labels[0:list_length]:
         word_string = word_string + ", " + word
     speech = polly.synthesize_speech(Text=word_string,

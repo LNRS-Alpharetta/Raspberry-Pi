@@ -37,7 +37,7 @@ while True:
             database.inc(face_labels)
             audio.play('./mp3/faces_comment.mp3')
             print(face_labels)
-            polly.speak(face_labels)
+            polly.speak(face_labels, False)
         # Step 2. Is the picture of a celebrity?
             celeb_result = rekognition.detect_celebrities_api(s3)
             celeb_labels = rekognition.get_celebrity_labels(celeb_result, ct)

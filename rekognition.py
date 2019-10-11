@@ -30,6 +30,11 @@ def get_face_labels(result, ct) -> []:
     if faces:
         for face in faces:
             labels.append('Face')
+            emotions = face['Emotions']
+            if emotions:
+                for emotion in emotions:
+                    if emotion['Confidence'] > ct:
+                        labels.append(emotion['Type'].capitalize())
             check_str(labels, face, 'Gender', ct)
             ages = face['AgeRange']
             labels.append("Age {}-{}".format(ages['Low'], ages['High']))
@@ -40,11 +45,6 @@ def get_face_labels(result, ct) -> []:
             check_bool(labels, face, 'Mustache', ct)
             check_bool(labels, face, 'EyesOpen', ct)
             check_bool(labels, face, 'MouthOpen', ct)
-            emotions = face['Emotions']
-            if emotions:
-                for emotion in emotions:
-                    if emotion['Confidence'] > ct:
-                        labels.append(emotion['Type'].capitalize())
     return labels
 
 
