@@ -7,12 +7,16 @@ font_size = 30
 if platform.system() == 'Darwin':
     font_lib = '/Library/Fonts/Arial.ttf'
 else:
-    font_lib = '/usr/share/fonts/truetype/droid/DroidSansFallbackFull.ttf'
+    font_lib = '/usr/share/fonts/truetype/freefont/FreeSans.ttf'
 label_font = ImageFont.truetype(font_lib, font_size)
 
 
 def load_image(image_file) -> Image:
     return Image.open(image_file)
+
+
+def save_image(image, image_name):
+    image.save(image_name)
 
 
 def annotate_image(image, face, text, text_left=4, text_top=4, font=label_font,
@@ -43,10 +47,11 @@ def annotate_faces(image, face_result):
 
 
 def annotate_celebs(image, celeb_result):
-    celebrities = celeb_result['CelebrityFaces']
-    if celebrities:
-        for celebrity in celebrities:
-            annotate_image(image, celebrity['Face'], celebrity['Name'])
+    if celeb_result:
+        celebrities = celeb_result['CelebrityFaces']
+        if celebrities:
+            for celebrity in celebrities:
+                annotate_image(image, celebrity['Face'], celebrity['Name'])
 
 
 def annotate_labels(image, label_result):
