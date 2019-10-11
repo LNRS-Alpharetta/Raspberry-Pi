@@ -1,4 +1,5 @@
 import boto3
+import database
 
 client = boto3.client('rekognition')
 
@@ -57,7 +58,9 @@ def get_celebrity_labels(result, ct) -> []:
     celebrities = result['CelebrityFaces']
     if celebrities:
         for celebrity in celebrities:
-            if celebrity['MatchConfidence'] > ct:
+            confidence = celebrity['MatchConfidence']
+            database.insert_trend(confidence)
+            if confidence > ct:
                 labels.append(celebrity['Name'])
     return labels
 
@@ -81,7 +84,9 @@ def get_text_labels(result, ct) -> []:
     # detects text and returns lines and words
     labels = []
     for text in result['TextDetections']:
-        if (text['Type'] == 'LINE' or text['Type'] == 'WORD') and text['Confidence'] > ct:
+        confidence = text['Confidence']
+        database.insert_trend(confidence)
+        if (text['Type'] == 'LINE' or text['Type'] == 'WORD') and confidence > ct:
             labels.append(text['DetectedText'])
     return labels
 
@@ -93,7 +98,9 @@ def get_labels(result, ct) -> []:
     # example: ['Person','Human','Shoe']
     labels = []
     for label in result['Labels']:
-        if label['Confidence'] >= ct:
+        confidence = label['Confidence']
+        database.insert_trend(confidence)
+        if confidence >= ct:
             labels.append(label['Name'])
     if labels.count('Face') > 0:
         labels.remove("Face")
@@ -103,12 +110,16 @@ def get_labels(result, ct) -> []:
 def check_str(labels, struct, attr, ct):
     # Check String Attribute
     attribute = struct[attr]
-    if attribute['Confidence'] > ct:
+    confidence = attribute['Confidence']
+    database.insert_trend(confidence)
+    if confidence > ct:
         labels.append(attribute['Value'].capitalize())
 
 
 def check_bool(labels, struct, attr, ct):
     # Check Boolean Attribute
     attribute = struct[attr]
-    if attribute['Value'] and attribute['Confidence'] > ct:
+    confidence = attribute['Confidence']
+    database.insert_trend(confidence)
+    if attribute['Value'] and confidence > ct:
         labels.append(attr)
