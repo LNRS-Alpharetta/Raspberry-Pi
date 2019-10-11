@@ -43,10 +43,10 @@ while True:
             celeb_labels = rekognition.get_celebrity_labels(celeb_result, ct)
             if celeb_labels:
                 database.inc(celeb_labels)
-                audio.play('./mp3/celeb_comment.mp3')
                 print(celeb_labels)
                 for celeb in celeb_labels:
                     desc = rekognition.get_celebrity_desc(celeb)
+                    audio.play('./mp3/celeb_comment.mp3')
                     polly.speak_words(celeb)
                     polly.speak_words(desc)
             else:
