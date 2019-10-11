@@ -45,7 +45,10 @@ while True:
                 database.inc(celeb_labels)
                 audio.play('./mp3/celeb_comment.mp3')
                 print(celeb_labels)
-                polly.speak(celeb_labels)
+                for celeb in celeb_labels:
+                    desc = rekognition.get_celebrity_desc(celeb)
+                    polly.speak(celeb)
+                    polly.speak(desc)
             else:
                 audio.play('./mp3/no_celeb_comment.mp3')
         # Step 3. Are there words?

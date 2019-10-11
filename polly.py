@@ -6,6 +6,11 @@ voice = 'Joanna'
 file = '/tmp/temp.mp3'
 
 
+def speak(word):
+    single_list = [word]
+    speak(single_list)
+
+
 def speak(labels, limit=True):
     word_string = ""
     list_length = 5

@@ -1,5 +1,7 @@
 import boto3
 import database
+import imdb
+import re
 
 client = boto3.client('rekognition')
 
@@ -63,6 +65,18 @@ def get_celebrity_labels(result, ct) -> []:
             if confidence > ct:
                 labels.append(celebrity['Name'])
     return labels
+
+
+def get_celebrity_desc(celeb_name) -> str:
+    ia = imdb.IMDb()
+    celeb_search = ia.search_person(celeb_name)
+    find = re.findall(r'\d+', str(celeb_search))
+    celeb_id = list(map(int, find))[0]
+    person = ia.get_person(celeb_id)
+    biog = person['biography'][0]
+    dot_end = biog.find('.', 500, 1500)
+    wc = len(biog.split())
+    print(biog[0:dot_end])
 
 
 def get_celebrity_urls(result, name) -> []:
