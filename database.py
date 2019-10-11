@@ -24,5 +24,5 @@ def inc(labels):
 
 def insert_trend(confidence):
     table.put_item(
-        Item={vars.get('trend_key'): datetime.datetime.now(),
+        Item={vars.get('trend_key'): str(datetime.datetime.now()),
               'confidence': confidence})
