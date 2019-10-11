@@ -8,7 +8,7 @@ import time
 import audio
 import polly
 
-ct = 50
+ct = 20
 image_file = '/tmp/image.jpg'
 temp_file = '/tmp/test.jpg'
 button = gpiozero.Button(17)
@@ -37,7 +37,6 @@ while True:
             database.inc(face_labels)
             audio.play('./mp3/faces_comment.mp3')
             print(face_labels)
-            print(face_result)
             polly.speak(face_labels, False)
         # Step 2. Is the picture of a celebrity?
             celeb_result = rekognition.detect_celebrities_api(s3)
@@ -46,7 +45,6 @@ while True:
                 database.inc(celeb_labels)
                 audio.play('./mp3/celeb_comment.mp3')
                 print(celeb_labels)
-                print(celeb_result)
                 polly.speak(celeb_labels)
             else:
                 audio.play('./mp3/no_celeb_comment.mp3')
@@ -56,7 +54,6 @@ while True:
         if text_labels: 
             audio.play('./mp3/text_comment.mp3')
             print(text_labels)
-            print(text_result)
             polly.speak(text_labels)
         # Step 4. What else is in the picture?
         label_result = rekognition.detect_labels_api(s3)
@@ -65,7 +62,6 @@ while True:
             database.inc(labels)
             audio.play('./mp3/labels_comment.mp3')
             print(labels)
-            print(label_result)
             polly.speak(labels)
         # annotate image
         image = draw.load_image(image_file)
@@ -76,7 +72,6 @@ while True:
         draw.save_image(image, temp_file)
         # Upload annotated image to S3
         storage.upload(temp_file)
-        # website updated with graph and photo booth
         audio.play('./mp3/closure_comment.mp3')
         print("system ready...")
     time.sleep(0.2)
