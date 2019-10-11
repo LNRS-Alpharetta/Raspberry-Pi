@@ -58,7 +58,6 @@ def get_celebrity_labels(result, ct) -> []:
     if celebrities:
         for celebrity in celebrities:
             if celebrity['MatchConfidence'] > ct:
-                labels.append('Celebrity')
                 labels.append(celebrity['Name'])
     return labels
 
