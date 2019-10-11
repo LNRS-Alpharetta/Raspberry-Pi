@@ -8,7 +8,7 @@ file = '/tmp/temp.mp3'
 
 def speak(labels):
     word_string = ""
-    for word in labels:
+    for word in labels[0:4]:
         word_string = word_string + ", " + word
     speech = polly.synthesize_speech(Text=word_string,
                                      OutputFormat='mp3',
