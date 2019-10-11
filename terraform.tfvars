@@ -1,4 +1,6 @@
-image_bucket = "lnrs-alpharetta-bot-1"
+image_bucket = "imapi-images"
 website_bucket = "interactiveai.info"
-stats_table = "bot-stats"
+stats_table = "imapi-count"
 stats_key = "label"
+trend_table = "imapi-trend"
+trend_key = "timestamp"
