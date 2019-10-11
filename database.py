@@ -1,13 +1,14 @@
 import boto3
 import vars
+import datetime
 
-db = boto3.client('dynamodb')
-
-# add timestamp and confidence score to database
+db_client = boto3.client('dynamodb')
+db_resource = boto3.resource('dynamodb')
+table = db_resource.Table(vars.get('trend_table'))
 
 
 def inc_label(label):
-    db.update_item(
+    db_client.update_item(
         TableName=vars.get('stats_table'),
         Key={vars.get('stats_key'): {'S': label}},
         UpdateExpression='ADD #count :count',
@@ -19,3 +20,9 @@ def inc(labels):
     if labels:
         for label in labels:
             inc_label(label)
+
+
+def insert_trend(confidence):
+    table.put_item(
+        Item={vars.get('trend_key'): datetime.datetime.now(),
+              'confidence': confidence})
