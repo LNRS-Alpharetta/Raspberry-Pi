@@ -22,11 +22,11 @@ while True:
     celeb_labels = []
     # object is triggered by a button push
     if button.is_pressed:
-        audio.play('./mp3/intro_comment.mp3')
         print("working...")
         # capture picture from camera
         with picamera.PiCamera() as camera:
             camera.capture(image_file)
+        audio.play('./mp3/intro_comment.mp3')
         # upload picture to S3
         s3 = storage.upload(image_file)
         # call rekognition apis
