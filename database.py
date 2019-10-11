@@ -1,6 +1,7 @@
 import boto3
 import vars
 import datetime
+import decimal
 
 db_client = boto3.client('dynamodb')
 db_resource = boto3.resource('dynamodb')
@@ -25,4 +26,4 @@ def inc(labels):
 def insert_trend(confidence):
     table.put_item(
         Item={vars.get('trend_key'): str(datetime.datetime.now()),
-              'confidence': confidence})
+              'confidence': decimal.Decimal(confidence)})
