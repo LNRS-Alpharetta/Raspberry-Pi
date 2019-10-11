@@ -6,7 +6,7 @@ voice = 'Joanna'
 file = '/tmp/temp.mp3'
 
 
-def speak_word(word):
+def speak_words(word):
     render_speech(word)
 
 

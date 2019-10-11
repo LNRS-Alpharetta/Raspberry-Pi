@@ -47,8 +47,8 @@ while True:
                 print(celeb_labels)
                 for celeb in celeb_labels:
                     desc = rekognition.get_celebrity_desc(celeb)
-                    polly.speak(celeb)
-                    polly.speak(desc)
+                    polly.speak_words(celeb)
+                    polly.speak_words(desc)
             else:
                 audio.play('./mp3/no_celeb_comment.mp3')
         # Step 3. Are there words?
