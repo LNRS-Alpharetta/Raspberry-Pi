@@ -6,9 +6,8 @@ voice = 'Joanna'
 file = '/tmp/temp.mp3'
 
 
-def speak(word):
-    single_list = [word]
-    speak(single_list)
+def speak_word(word):
+    render_speech(word)
 
 
 def speak(labels, limit=True):
@@ -18,8 +17,14 @@ def speak(labels, limit=True):
         list_length = len(labels)
     for word in labels[0:list_length]:
         word_string = word_string + ", " + word
-    speech = polly.synthesize_speech(Text=word_string,
+    render_speech(word_string)
+
+
+def render_speech(text):
+    speech_text = "<speak>" + text + "</speak>"
+    speech = polly.synthesize_speech(Text=speech_text,
                                      OutputFormat='mp3',
+                                     TextType='ssml',
                                      VoiceId=voice)
     with open(file, 'wb') as writer:
         writer.write(speech['AudioStream'].read())

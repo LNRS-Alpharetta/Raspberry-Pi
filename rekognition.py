@@ -74,9 +74,12 @@ def get_celebrity_desc(celeb_name) -> str:
     celeb_id = list(map(int, find))[0]
     person = ia.get_person(celeb_id)
     biog = person['biography'][0]
-    dot_end = biog.find('.', 500, 1500)
+    dot_end = biog.find('.', 100, 500)
     wc = len(biog.split())
-    print(biog[0:dot_end])
+    text = biog[0:dot_end]
+    parsed_text = text.replace('.', '. ')
+    print(parsed_text)
+    return parsed_text
 
 
 def get_celebrity_urls(result, name) -> []:
