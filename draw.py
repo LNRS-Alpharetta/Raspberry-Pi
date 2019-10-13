@@ -22,7 +22,8 @@ def save_image(image, image_name):
 
 def preview_image(image, button):
     time.sleep(0.5)
-    os.system("sudo fbi -a ".format("{}", image))
+    command = "sudo fbi -a {}".format(image)
+    os.system(command)
     while True:
         if button.is_pressed:
             break
