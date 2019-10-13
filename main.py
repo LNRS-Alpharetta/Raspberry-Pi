@@ -70,11 +70,11 @@ try:
             draw.annotate_labels(image, label_result)
             draw.annotate_text(image, text_result)
             draw.save_image(image, temp_file)
-            draw.preview_image(temp_file, button)
             # Upload annotated image to S3
             storage.upload(temp_file)
             audio.play('./mp3/closure_comment.mp3')
             storage.delete(s3['S3Object']['Name'])
+            draw.preview_image(temp_file, button)
             print("system ready...")
         time.sleep(0.2)
 except KeyboardInterrupt:
