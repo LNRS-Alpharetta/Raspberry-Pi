@@ -24,6 +24,13 @@ try:
         # object is triggered by a button push
         if button.is_pressed:
             print("working...")
+            # start preview
+            with picamera.PiCamera() as camera:
+                camera.start_preview()
+                while True:
+                    if button.is_pressed:
+                        camera.stop_preview()
+                        break
             # capture picture from camera
             with picamera.PiCamera() as camera:
                 camera.capture(image_file)
