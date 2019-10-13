@@ -1,5 +1,4 @@
 from PIL import Image, ImageDraw, ImageFont
-import subprocess
 import platform
 import pygame
 import time
@@ -21,17 +20,6 @@ def save_image(image, image_name):
     image.save(image_name)
 
 
-# def preview_image(image, button):
-#    time.sleep(0.5)
-#    command = "fbi, -noverbose -a {}".format(image)
-#    process = subprocess.Popen(command.split())
-#    while True:
-#        if button.is_pressed:
-#            process.kill()
-#            break
-#        time.sleep(0.2)
-
-
 def preview_image(image, button):
     pygame.display.init()
     img = pygame.image.load(image)
@@ -42,7 +30,7 @@ def preview_image(image, button):
         if button.is_pressed:
             pygame.quit()
             break
-        time.sleep(0.2)
+        time.sleep(0.1)
 
 
 def annotate_image(image, face, text, text_left=4, text_top=4, font=label_font,

@@ -12,10 +12,11 @@ ct = 50
 image_file = '/tmp/image.jpg'
 temp_file = '/tmp/test.jpg'
 button = gpiozero.Button(17)
+ready_message = "[IMAPI-RU] system ready"
 
 try:
     audio.play_mp3("startup_comment.mp3")
-    print("system ready...")
+    print(ready_message)
     while True:
         celeb_result = None
         celeb_labels = []
@@ -76,10 +77,10 @@ try:
             audio.play_mp3("closure_comment.mp3")
             storage.delete(s3['S3Object']['Name'])
             draw.preview_image(temp_file, button)
-            print("system ready...")
-        time.sleep(0.2)
+            print(ready_message)
+        time.sleep(0.1)
 except KeyboardInterrupt:
-    print("exiting...")
+    print("request to stop program")
 finally:
     audio.play_mp3("exception_comment.mp3")
-    print("process ended.")
+    print("[IMAPI-RU] process ended")
