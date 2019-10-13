@@ -62,7 +62,6 @@ try:
             labels = rekognition.get_labels(label_result, ct)
             if labels:
                 print(labels)
-                print(label_result)
                 database.inc(labels)
                 audio.play_mp3("labels_comment.mp3")
                 polly.speak(labels)

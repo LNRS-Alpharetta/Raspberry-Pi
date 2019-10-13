@@ -118,7 +118,6 @@ def get_labels(result, ct) -> []:
         database.insert_trend(confidence)
         if confidence >= ct:
             name = label["Name"]
-            print(len(label['Instances']))
             if len(label['Instances']) > 0:
                 instances.append(name)
             else:
