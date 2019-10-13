@@ -1,6 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 import platform
-
+import time
+import os
 
 font_lib = None
 font_size = 30
@@ -17,6 +18,15 @@ def load_image(image_file) -> Image:
 
 def save_image(image, image_name):
     image.save(image_name)
+
+
+def preview_image(image, button):
+    time.sleep(0.5)
+    os.system("sudo fbi -a ".format({}, image))
+    while True:
+        if button.is_pressed:
+            break
+        time.sleep(0.2)
 
 
 def annotate_image(image, face, text, text_left=4, text_top=4, font=label_font,
