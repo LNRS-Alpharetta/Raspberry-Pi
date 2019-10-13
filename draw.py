@@ -1,6 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 import subprocess
 import platform
+import pygame
 import time
 
 font_lib = None
@@ -20,13 +21,26 @@ def save_image(image, image_name):
     image.save(image_name)
 
 
+# def preview_image(image, button):
+#    time.sleep(0.5)
+#    command = "fbi, -noverbose -a {}".format(image)
+#    process = subprocess.Popen(command.split())
+#    while True:
+#        if button.is_pressed:
+#            process.kill()
+#            break
+#        time.sleep(0.2)
+
+
 def preview_image(image, button):
-    time.sleep(0.5)
-    command = ['fbi', '-noverbose', '-u', '-a', '-t', '10', image]
-    process = subprocess.Popen(command)
+    pygame.display.init()
+    img = pygame.image.load(image)
+    screen = pygame.display.set_mode(img.get_size())
+    screen.blit(img, (0, 0))
+    pygame.display.flip()
     while True:
         if button.is_pressed:
-            process.kill()
+            pygame.quit()
             break
         time.sleep(0.2)
 
