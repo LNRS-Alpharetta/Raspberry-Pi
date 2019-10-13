@@ -1,6 +1,6 @@
 import pygame
 
-mute = False
+mute = True
 mp3_dir = '/home/pi/mp3'
 
 
