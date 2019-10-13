@@ -122,7 +122,7 @@ def get_labels(result, ct) -> []:
                 instances.append(name)
             else:
                 labels.append(name)
-    return instances + labels
+    return instances.append(labels)
 
 
 def check_str(labels, struct, attr, ct):

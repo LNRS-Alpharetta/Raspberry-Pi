@@ -81,7 +81,7 @@ try:
             print(ready_message)
         time.sleep(0.1)
 except KeyboardInterrupt:
-    print("request to stop program")
+    print("...request to stop program...")
 finally:
     audio.play_mp3("exception_comment.mp3")
     print("[IMAPI-RU] process ended")
