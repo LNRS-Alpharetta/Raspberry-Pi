@@ -26,19 +26,17 @@ def get_face_labels(result, ct) -> []:
     # result  - result from the API call
     # ct - confidence threshold to limit return values
     # returns a list of faces found, includes all attributes
-    # appends the word 'face' as a delimiter
-    # example: ['face','male','age 23-35','face','female','age 35-45]']
+    # example: ['male','age 23-35','female','age 35-45]']
     labels = []
     faces = result['FaceDetails']
     if faces:
         for face in faces:
-            labels.append('Face')
+            check_str(labels, face, 'Gender', ct)
             emotions = face['Emotions']
             if emotions:
                 for emotion in emotions:
                     if emotion['Confidence'] > ct:
                         labels.append(emotion['Type'].capitalize())
-            check_str(labels, face, 'Gender', ct)
             ages = face['AgeRange']
             labels.append("Age {}-{}".format(ages['Low'], ages['High']))
             check_bool(labels, face, 'Smile', ct)
@@ -110,7 +108,7 @@ def get_text_labels(result, ct) -> []:
 def get_labels(result, ct) -> []:
     # result  - result from the API call
     # ct  - confidence threshold to limit return values
-    # returns a list of labels found - excluding the word Face
+    # returns a list of labels found
     # example: ['Person','Human','Shoe']
     labels = []
     for label in result['Labels']:
@@ -118,8 +116,6 @@ def get_labels(result, ct) -> []:
         database.insert_trend(confidence)
         if confidence >= ct:
             labels.append(label['Name'])
-    if labels.count('Face') > 0:
-        labels.remove("Face")
     return labels
 
 

@@ -2,8 +2,6 @@ import boto3
 import audio
 
 polly = boto3.Session().client('polly')
-voice = 'Joanna'
-file = '/tmp/temp.mp3'
 
 
 def speak_words(word):
@@ -20,7 +18,7 @@ def speak(labels, limit=True):
     render_speech(word_string)
 
 
-def render_speech(text):
+def render_speech(text, file='/tmp/temp.mp3', voice='Joanna'):
     speech_text = "<speak>" + text + "</speak>"
     speech = polly.synthesize_speech(Text=speech_text,
                                      OutputFormat='mp3',
