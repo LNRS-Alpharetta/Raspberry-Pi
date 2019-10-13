@@ -25,6 +25,7 @@ try:
         if button.is_pressed:
             print("working...")
             # start preview
+            time.sleep(0.5)
             with picamera.PiCamera() as camera:
                 camera.start_preview()
                 while True:
@@ -45,7 +46,7 @@ try:
                 print(face_labels)
                 database.inc(face_labels)
                 audio.play('./mp3/faces_comment.mp3')
-                polly.speak(face_labels, False)
+                polly.speak(face_labels, limit=False)
             # Step 2. Is the picture of a celebrity?
                 celeb_result = rekognition.detect_celebrities_api(s3)
                 celeb_labels = rekognition.get_celebrity_labels(celeb_result, ct)
@@ -89,6 +90,6 @@ try:
         time.sleep(0.2)
 except KeyboardInterrupt:
     print("exiting...")
-    # say "Halt and catch fire"
 finally:
+    audio.play('./mp3/exception_comment.mp3')
     print("process ended.")

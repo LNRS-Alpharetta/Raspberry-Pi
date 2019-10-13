@@ -18,12 +18,13 @@ def speak(labels, limit=True):
     render_speech(word_string)
 
 
-def render_speech(text, file='/tmp/temp.mp3', voice='Joanna'):
+def render_speech(text, file='/tmp/temp.mp3', voice='Joanna', engine='standard'):
     speech_text = "<speak>" + text + "</speak>"
     speech = polly.synthesize_speech(Text=speech_text,
                                      OutputFormat='mp3',
                                      TextType='ssml',
-                                     VoiceId=voice)
+                                     VoiceId=voice,
+                                     Engine=engine)
     with open(file, 'wb') as writer:
         writer.write(speech['AudioStream'].read())
         writer.close()
