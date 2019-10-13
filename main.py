@@ -46,8 +46,8 @@ try:
                     for celeb in celeb_labels:
                         desc = rekognition.get_celebrity_desc(celeb)
                         audio.play_mp3("celeb_comment.mp3")
-                        polly.speak(celeb)
-                        polly.speak(desc)
+                        polly.render_speech(celeb)
+                        polly.render_speech(desc)
                 else:
                     audio.play_mp3("no_celeb_comment.mp3")
             # Step 3. Are there words?

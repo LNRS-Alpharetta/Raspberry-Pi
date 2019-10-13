@@ -4,12 +4,6 @@ import audio
 polly = boto3.Session().client('polly')
 
 
-def speak_words(word, paragraph=False):
-    if paragraph:
-        word = "<p>" + word + "/<p>"
-    render_speech(word)
-
-
 def speak(labels, limit=True):
     word_string = ""
     list_length = 5
@@ -20,11 +14,14 @@ def speak(labels, limit=True):
     render_speech(word_string)
 
 
-def render_speech(text, file='/tmp/temp.mp3', voice='Joanna', engine='standard'):
-    speech_text = "<speak>" + text + "</speak>"
+def render_speech(text, file='/tmp/temp.mp3', voice='Joanna', engine='standard', text_type='text'):
+    if text_type == 'ssml':
+        speech_text = "<speak>" + text + "</speak>"
+    else:
+        speech_text = text
     speech = polly.synthesize_speech(Text=speech_text,
                                      OutputFormat='mp3',
-                                     TextType='ssml',
+                                     TextType=text_type,
                                      VoiceId=voice,
                                      Engine=engine)
     with open(file, 'wb') as writer:
