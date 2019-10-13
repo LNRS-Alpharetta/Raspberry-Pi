@@ -23,8 +23,8 @@ try:
         if button.is_pressed:
             print("starting preview...")
             camera.preview(button)
-            print('working...')
             camera.capture(image_file)
+            print('working...')
             audio.play_mp3("intro_comment.mp3")
             # upload picture to S3
             s3 = storage.upload(image_file)
@@ -62,6 +62,7 @@ try:
             labels = rekognition.get_labels(label_result, ct)
             if labels:
                 print(labels)
+                print(label_result)
                 database.inc(labels)
                 audio.play_mp3("labels_comment.mp3")
                 polly.speak(labels)

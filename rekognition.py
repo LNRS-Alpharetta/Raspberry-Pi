@@ -109,7 +109,9 @@ def get_labels(result, ct) -> []:
     # result  - result from the API call
     # ct  - confidence threshold to limit return values
     # returns a list of labels found
-    # example: ['Person','Human','Shoe']
+    # labels with instances will be first
+    # example: ['Shoe','Person','Human']
+    instances = []
     labels = []
     for label in result['Labels']:
         confidence = label['Confidence']
