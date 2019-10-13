@@ -1,6 +1,7 @@
 import pygame
 
 mute = False
+mp3_dir = '/home/pi/mp3'
 
 
 def muted():
@@ -15,3 +16,7 @@ def play(audio_file):
         pygame.mixer.music.play()
         while pygame.mixer.music.get_busy():
             continue
+
+
+def play_mp3(mp3_file):
+    play("{}/{}".format(mp3_dir,mp3_file))
