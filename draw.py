@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
+import subprocess
 import platform
 import time
-import os
 
 font_lib = None
 font_size = 30
@@ -22,10 +22,11 @@ def save_image(image, image_name):
 
 def preview_image(image, button):
     time.sleep(0.5)
-    command = "sudo fbi -a {}".format(image)
-    os.system(command)
+    command = "sudo fbi -a {} &".format(image)
+    process = subprocess.Popen(command)
     while True:
         if button.is_pressed:
+            process.kill()
             break
         time.sleep(0.2)
 
