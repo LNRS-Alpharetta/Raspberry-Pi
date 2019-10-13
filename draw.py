@@ -22,7 +22,7 @@ def save_image(image, image_name):
 
 def preview_image(image, button):
     time.sleep(0.5)
-    command = "fbi -a {}".format(image)
+    command = ['fbi', '-a', image]
     process = subprocess.Popen(command)
     while True:
         if button.is_pressed:
