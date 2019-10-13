@@ -1,9 +1,9 @@
 import rekognition
 import storage
 import database
-import draw
 import gpiozero
-import picamera
+import camera
+import draw
 import time
 import audio
 import polly
@@ -14,27 +14,15 @@ temp_file = '/tmp/test.jpg'
 button = gpiozero.Button(17)
 
 try:
-    # speaker will emit a ready signal when the system is initialized
     audio.play('./mp3/startup_comment.mp3')
     print("system ready...")
     while True:
-        # init
         celeb_result = None
         celeb_labels = []
-        # object is triggered by a button push
         if button.is_pressed:
             print("working...")
-            # start preview
-            time.sleep(0.5)
-            with picamera.PiCamera() as camera:
-                camera.start_preview()
-                while True:
-                    if button.is_pressed:
-                        camera.stop_preview()
-                        break
-            # capture picture from camera
-            with picamera.PiCamera() as camera:
-                camera.capture(image_file)
+            camera.preview(button)
+            camera.capture(image_file)
             audio.play('./mp3/intro_comment.mp3')
             # upload picture to S3
             s3 = storage.upload(image_file)
@@ -57,7 +45,7 @@ try:
                         desc = rekognition.get_celebrity_desc(celeb)
                         audio.play('./mp3/celeb_comment.mp3')
                         polly.speak_words(celeb)
-                        polly.speak_words(desc)
+                        polly.speak_words(desc, paragraph=True)
                 else:
                     audio.play('./mp3/no_celeb_comment.mp3')
             # Step 3. Are there words?

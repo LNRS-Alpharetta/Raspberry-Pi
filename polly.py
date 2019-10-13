@@ -4,7 +4,9 @@ import audio
 polly = boto3.Session().client('polly')
 
 
-def speak_words(word):
+def speak_words(word, paragraph=False):
+    if paragraph:
+        word = "<p>" + word + "/<p>"
     render_speech(word)
 
 
