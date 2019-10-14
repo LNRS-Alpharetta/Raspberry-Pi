@@ -12,7 +12,7 @@ ct = 50
 image_file = '/tmp/image.jpg'
 temp_file = '/tmp/test.jpg'
 button = gpiozero.Button(17)
-ready_message = "[IMAPI-RU] system ready"
+ready_message = "[PiCeDoFi-IMAPI-RU] system ready"
 
 try:
     audio.play_mp3("startup_comment.mp3")
@@ -83,4 +83,4 @@ except KeyboardInterrupt:
     print("...request to stop program...")
 finally:
     audio.play_mp3("exception_comment.mp3")
-    print("[IMAPI-RU] process ended")
+    print("[PiCeDoFi-IMAPI-RU] process ended")
