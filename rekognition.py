@@ -1,3 +1,4 @@
+from google_images_download import google_images_download
 import boto3
 import database
 import imdb
@@ -95,6 +96,17 @@ def get_celebrity_urls(result, name) -> []:
             if celebrity['Name'] == name:
                 urls = urls + celebrity['Urls']
     return urls
+
+
+def get_celebrity_image(query) -> str:
+    query = 'Brad Pitt'
+    arguments = {"keywords": query,
+                 "format": "jpg",
+                 "limit": 1,
+                 "no_directory": True}
+    response = google_images_download.googleimagesdownload()
+    absolute_image_paths = response.download(arguments)
+    return absolute_image_paths[0]
 
 
 def get_text_labels(result, ct) -> []:

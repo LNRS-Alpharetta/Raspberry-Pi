@@ -76,6 +76,11 @@ try:
             storage.upload(temp_file)
             audio.play_mp3("closure_comment.mp3")
             storage.delete(s3['S3Object']['Name'])
+            # Display celebrity images
+            if celeb_labels:
+                for celeb in celeb_labels:
+                    celeb_image = rekognition.get_celebrity_image(celeb)
+                    draw.preview_image(celeb_image, button)
             draw.preview_image(temp_file, button)
             print(ready_message)
         time.sleep(0.1)
