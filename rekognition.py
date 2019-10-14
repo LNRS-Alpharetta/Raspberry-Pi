@@ -99,7 +99,6 @@ def get_celebrity_urls(result, name) -> []:
 
 
 def get_celebrity_image(query) -> str:
-    query = 'Brad Pitt'
     arguments = {"keywords": query,
                  "format": "jpg",
                  "limit": 1,
