@@ -98,14 +98,14 @@ def get_celebrity_urls(result, name) -> []:
     return urls
 
 
-def get_celebrity_image(query) -> str:
-    arguments = {"keywords": query,
+def get_celebrity_image(name) -> str:
+    arguments = {"keywords": name,
                  "format": "jpg",
                  "limit": 1,
                  "no_directory": True}
     response = google_images_download.googleimagesdownload()
     absolute_image_paths = response.download(arguments)
-    return absolute_image_paths[0]
+    return absolute_image_paths[name]
 
 
 def get_text_labels(result, ct) -> []:
