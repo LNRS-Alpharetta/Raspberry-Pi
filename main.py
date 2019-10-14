@@ -45,7 +45,7 @@ try:
                     database.inc(celeb_labels)
                     for celeb in celeb_labels:
                         celeb_image = rekognition.get_celebrity_image(celeb)
-                        draw.preview_image(celeb_image, button)                                          
+                        draw.preview_image(celeb_image, button)
                         desc = rekognition.get_celebrity_desc(celeb)
                         audio.play_mp3("celeb_comment.mp3")
                         polly.render_speech(celeb)
