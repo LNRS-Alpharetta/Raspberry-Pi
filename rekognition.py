@@ -65,17 +65,22 @@ def get_celebrity_labels(result, ct) -> []:
 
 
 def get_celebrity_desc(celeb_name) -> str:
-    ia = imdb.IMDb()
-    celeb_search = ia.search_person(celeb_name)
-    find = re.findall(r'\d+', str(celeb_search))
-    celeb_id = list(map(int, find))[0]
-    person = ia.get_person(celeb_id)
-    biog = person['biography'][0]
-    dot_end = biog.find('.', 100, 500)
-    wc = len(biog.split())
-    text = biog[0:dot_end]
-    parsed_text = text.replace('.', '. ')
-    print(parsed_text)
+    parsed_text = ""
+    try:
+        ia = imdb.IMDb()
+        celeb_search = ia.search_person(celeb_name)
+        find = re.findall(r'\d+', str(celeb_search))
+        celeb_id = list(map(int, find))[0]
+        person = ia.get_person(celeb_id)
+        biog = person['biography'][0]
+        dot_end = biog.find('.', 100, 500)
+        wc = len(biog.split())
+        text = biog[0:dot_end]
+        parsed_text = text.replace('.', '. ')
+    except:
+        parsed_text = "No celebrity description available"
+    finally:
+        print(parsed_text)
     return parsed_text
 
 
