@@ -21,7 +21,6 @@ def save_image(image, image_name):
 
 
 def preview_image(image, button):
-    print(image)
     pygame.display.init()
     img = pygame.image.load(image)
     screen = pygame.display.set_mode(img.get_size())
