@@ -78,7 +78,8 @@ def get_celebrity_desc(celeb_name) -> str:
         wc = len(biog.split())
         text = biog[0:dot_end]
         parsed_text = text.replace('.', '. ')
-    except:
+    except Exception as e:
+        print(e)
         parsed_text = "No celebrity description available"
     finally:
         print(parsed_text)
@@ -99,13 +100,19 @@ def get_celebrity_urls(result, name) -> []:
 
 
 def get_celebrity_image(name) -> str:
-    arguments = {"keywords": name, "format": "jpg", "limit": 1,
-                 "no_directory": True, "no_numbering": True,
-                 "silent_mode": True, "exact_size": "800,480",
-                 "single_image": True}
-    response = google_images_download.googleimagesdownload()
-    absolute_image_paths = response.download(arguments)
-    return absolute_image_paths[0][name][0]
+    path = None
+    try:
+        arguments = {"keywords": name, "format": "jpg", "limit": 1,
+                     "no_directory": True, "no_numbering": True,
+                     "silent_mode": True, "exact_size": "800,480",
+                     "single_image": True}
+        response = google_images_download.googleimagesdownload()
+        absolute_image_paths = response.download(arguments)
+        path = absolute_image_paths[0][name][0]
+    except Exception as e:
+        print(e)
+        path = None
+    return path
 
 
 def get_text_labels(result, ct) -> []:
