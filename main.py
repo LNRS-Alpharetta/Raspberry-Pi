@@ -20,6 +20,8 @@ try:
     os.system('clear')
     print(ready_message)
     while True:
+        text_result = None
+        label_result = None
         celeb_result = None
         celeb_labels = []
         if button.is_pressed:
@@ -35,7 +37,6 @@ try:
             # Step 1. Are there faces in the image?
             face_result = rekognition.detect_faces_api(s3)
             face_labels = rekognition.get_face_labels(face_result, ct)
-            draw.annotate_faces(image, face_result)
             if face_labels:
                 os.system('clear')
                 draw.display_text(face_labels)
@@ -58,7 +59,6 @@ try:
                         desc = rekognition.get_celebrity_desc(celeb)
                         print(desc)
                         polly.render_speech(desc)
-                        draw.annotate_celebs(image, celeb_result)
                 else:
                     audio.play_mp3("no_celeb_comment.mp3")
             # Step 3. If there are no faces, check for words
@@ -69,7 +69,6 @@ try:
                     draw.display_text(text_labels)
                     audio.play_mp3("text_comment.mp3")
                     polly.speak(text_labels)
-                    draw.annotate_text(image, text_result)
                 # Step 4. What else is in the picture?
                 label_result = rekognition.detect_labels_api(s3)
                 labels = rekognition.get_labels(label_result, ct)
@@ -79,7 +78,10 @@ try:
                     database.inc(labels)
                     audio.play_mp3("labels_comment.mp3")
                     polly.speak(labels)
-                    draw.annotate_labels(image, label_result)
+            draw.annotate_faces(image, face_result)
+            draw.annotate_celebs(image, celeb_result)
+            draw.annotate_text(image, text_result)
+            draw.annotate_labels(image, label_result)
             draw.save_image(image, temp_file)
             # Upload annotated image to S3
             storage.upload(temp_file)
