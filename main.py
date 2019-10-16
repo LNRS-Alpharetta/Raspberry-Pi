@@ -55,6 +55,8 @@ try:
                         if celeb_image:
                             draw.preview_image(celeb_image, button)
                         desc = rekognition.get_celebrity_desc(celeb)
+                        os.system('clear')
+                        print(desc)
                         polly.render_speech(desc)
                         draw.annotate_celebs(image, celeb_result)
                 else:

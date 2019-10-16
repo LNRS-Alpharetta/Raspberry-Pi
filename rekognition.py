@@ -81,8 +81,6 @@ def get_celebrity_desc(celeb_name) -> str:
     except Exception as e:
         print(e)
         parsed_text = "No celebrity description available"
-    finally:
-        print(parsed_text)
     return parsed_text
 
 
