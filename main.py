@@ -20,10 +20,6 @@ try:
     os.system('clear')
     print(ready_message)
     while True:
-        text_result = []
-        label_result = []
-        celeb_result = []
-        celeb_labels = []
         if button.is_pressed:
             print("starting preview...")
             camera.preview(button)
@@ -49,6 +45,7 @@ try:
                 if celeb_labels:
                     draw.display_text(celeb_labels)
                     database.inc(celeb_labels)
+                    draw.annotate_celebs(image, celeb_result)
                     for celeb in celeb_labels:
                         audio.play_mp3("celeb_comment.mp3")
                         polly.render_speech(celeb)
@@ -65,6 +62,7 @@ try:
             else:
                 text_result = rekognition.detect_text_api(s3)
                 text_labels = rekognition.get_text_labels(text_result, ct)
+                draw.annotate_text(image, text_result)
                 if text_labels:
                     draw.display_text(text_labels)
                     audio.play_mp3("text_comment.mp3")
@@ -72,6 +70,7 @@ try:
                 # Step 4. What else is in the picture?
                 label_result = rekognition.detect_labels_api(s3)
                 labels = rekognition.get_labels(label_result, ct)
+                draw.annotate_labels(image, label_result)
                 if labels:
                     os.system('clear')
                     draw.display_text(labels)
@@ -79,10 +78,6 @@ try:
                     audio.play_mp3("labels_comment.mp3")
                     polly.speak(labels)
             draw.annotate_faces(image, face_result)
-            draw.annotate_celebs(image, celeb_result)
-            if text_result:
-                draw.annotate_text(image, text_result)
-            draw.annotate_labels(image, label_result)
             draw.save_image(image, temp_file)
             # Upload annotated image to S3
             storage.upload(temp_file)
