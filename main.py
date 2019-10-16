@@ -39,7 +39,8 @@ try:
                 database.inc(face_labels)
                 audio.play_mp3("faces_comment.mp3")
                 polly.speak(face_labels)
-            # Step 2. Is the picture of a celebrity?
+                draw.annotate_faces(image, face_result)
+                # Step 2. Is the picture of a celebrity?
                 celeb_result = rekognition.detect_celebrities_api(s3)
                 celeb_labels = rekognition.get_celebrity_labels(celeb_result, ct)
                 if celeb_labels:
@@ -77,7 +78,6 @@ try:
                     database.inc(labels)
                     audio.play_mp3("labels_comment.mp3")
                     polly.speak(labels)
-            draw.annotate_faces(image, face_result)
             draw.save_image(image, temp_file)
             # Upload annotated image to S3
             storage.upload(temp_file)
