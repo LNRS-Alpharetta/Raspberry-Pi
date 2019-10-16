@@ -36,7 +36,7 @@ try:
             face_result = rekognition.detect_faces_api(s3)
             face_labels = rekognition.get_face_labels(face_result, ct)
             if face_labels:
-                print(face_labels)
+                draw.display_text(face_labels)
                 database.inc(face_labels)
                 audio.play_mp3("faces_comment.mp3")
                 polly.speak(face_labels)
@@ -45,7 +45,7 @@ try:
                 celeb_result = rekognition.detect_celebrities_api(s3)
                 celeb_labels = rekognition.get_celebrity_labels(celeb_result, ct)
                 if celeb_labels:
-                    print(celeb_labels)
+                    draw.display_text(celeb_labels)
                     database.inc(celeb_labels)
                     for celeb in celeb_labels:
                         audio.play_mp3("celeb_comment.mp3")
@@ -63,7 +63,7 @@ try:
                 text_result = rekognition.detect_text_api(s3)
                 text_labels = rekognition.get_text_labels(text_result, ct)
                 if text_labels:
-                    print(text_labels)
+                    draw.display_text(text_labels)
                     audio.play_mp3("text_comment.mp3")
                     polly.speak(text_labels)
                     draw.annotate_text(image, text_result)
@@ -71,7 +71,7 @@ try:
                 label_result = rekognition.detect_labels_api(s3)
                 labels = rekognition.get_labels(label_result, ct)
                 if labels:
-                    print(labels)
+                    draw.display_text(labels)
                     database.inc(labels)
                     audio.play_mp3("labels_comment.mp3")
                     polly.speak(labels)

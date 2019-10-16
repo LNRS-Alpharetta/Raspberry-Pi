@@ -101,8 +101,9 @@ def get_celebrity_urls(result, name) -> []:
 
 def get_celebrity_image(name) -> str:
     path = None
+    query = name + " celebrity"
     try:
-        arguments = {"keywords": name, "format": "jpg", "limit": 1,
+        arguments = {"keywords": query, "format": "jpg", "limit": 1,
                      "no_directory": True, "no_numbering": True,
                      "silent_mode": True, "exact_size": "800,480",
                      "single_image": True}

@@ -20,6 +20,11 @@ def save_image(image, image_name):
     image.save(image_name)
 
 
+def display_text(words):
+    for word in words:
+        print(word)
+
+
 def preview_image(image, button):
     pygame.display.init()
     img = pygame.image.load(image)
