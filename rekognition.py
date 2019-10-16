@@ -109,7 +109,7 @@ def get_celebrity_image(name) -> str:
                      "single_image": True}
         response = google_images_download.googleimagesdownload()
         absolute_image_paths = response.download(arguments)
-        path = absolute_image_paths[0][name][0]
+        path = absolute_image_paths[0][query][0]
     except Exception as e:
         print(e)
         path = None

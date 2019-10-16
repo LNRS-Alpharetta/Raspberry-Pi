@@ -36,6 +36,7 @@ try:
             face_result = rekognition.detect_faces_api(s3)
             face_labels = rekognition.get_face_labels(face_result, ct)
             if face_labels:
+                os.system('clear')
                 draw.display_text(face_labels)
                 database.inc(face_labels)
                 audio.play_mp3("faces_comment.mp3")
