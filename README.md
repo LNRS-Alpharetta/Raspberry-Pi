@@ -23,6 +23,12 @@ There are many ways to setup AWS credentials, most typical is environment variab
 
 Required pip modules
 - boto3
+- Pillow
+- IMDbPy
+- gpiozero
+- picamera
+- pygame
+- google_images_download
 
 ```
 > python main.py
