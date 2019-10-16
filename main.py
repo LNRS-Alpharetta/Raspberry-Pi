@@ -78,14 +78,11 @@ try:
                     database.inc(labels)
                     audio.play_mp3("labels_comment.mp3")
                     polly.speak(labels)
-            if face_result:
-                draw.annotate_faces(image, face_result)
-            if celeb_result:
-                draw.annotate_celebs(image, celeb_result)
+            draw.annotate_faces(image, face_result)
+            draw.annotate_celebs(image, celeb_result)
             if text_result:
                 draw.annotate_text(image, text_result)
-            if label_result:
-                draw.annotate_labels(image, label_result)
+            draw.annotate_labels(image, label_result)
             draw.save_image(image, temp_file)
             # Upload annotated image to S3
             storage.upload(temp_file)
