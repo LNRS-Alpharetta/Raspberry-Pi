@@ -20,7 +20,7 @@ def save_image(image, image_name):
     image.save(image_name)
 
 
-def display_text(words, limit=15):
+def display_text(words, limit=12):
     for word in words[0:limit]:
         print(word)
 

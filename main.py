@@ -71,6 +71,7 @@ try:
                 label_result = rekognition.detect_labels_api(s3)
                 labels = rekognition.get_labels(label_result, ct)
                 if labels:
+                    os.system('clear')
                     draw.display_text(labels)
                     database.inc(labels)
                     audio.play_mp3("labels_comment.mp3")
