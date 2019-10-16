@@ -35,13 +35,13 @@ try:
             # Step 1. Are there faces in the image?
             face_result = rekognition.detect_faces_api(s3)
             face_labels = rekognition.get_face_labels(face_result, ct)
+            draw.annotate_faces(image, face_result)
             if face_labels:
                 os.system('clear')
                 draw.display_text(face_labels)
                 database.inc(face_labels)
                 audio.play_mp3("faces_comment.mp3")
                 polly.speak(face_labels)
-                draw.annotate_faces(image, face_result)
             # Step 2. Is the picture of a celebrity?
                 celeb_result = rekognition.detect_celebrities_api(s3)
                 celeb_labels = rekognition.get_celebrity_labels(celeb_result, ct)
