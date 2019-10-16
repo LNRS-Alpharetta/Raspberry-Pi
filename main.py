@@ -20,9 +20,9 @@ try:
     os.system('clear')
     print(ready_message)
     while True:
-        text_result = None
-        label_result = None
-        celeb_result = None
+        text_result = []
+        label_result = []
+        celeb_result = []
         celeb_labels = []
         if button.is_pressed:
             print("starting preview...")
