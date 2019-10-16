@@ -7,6 +7,7 @@ import draw
 import time
 import audio
 import polly
+import os
 
 ct = 50
 image_file = '/tmp/image.jpg'
@@ -16,6 +17,7 @@ ready_message = "[PiCeDoFi-IMAPI-RU] system ready"
 
 try:
     audio.play_mp3("startup_comment.mp3")
+    os.system('clear')
     print(ready_message)
     while True:
         celeb_result = None
@@ -80,6 +82,7 @@ try:
             audio.play_mp3("closure_comment.mp3")
             storage.delete(s3['S3Object']['Name'])
             draw.preview_image(temp_file, button)
+            os.system('clear')
             print(ready_message)
         time.sleep(0.1)
 except KeyboardInterrupt:
