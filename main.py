@@ -59,24 +59,24 @@ try:
                         polly.render_speech(desc)
                 else:
                     audio.play_mp3("no_celeb_comment.mp3")
-                # Step 3. Check for words
-                text_result = rekognition.detect_text_api(s3)
-                text_labels = rekognition.get_text_labels(text_result, ct)
-                draw.annotate_text(image, text_result)
-                if text_labels and not face_labels:
-                    draw.display_text(text_labels)
-                    audio.play_mp3("text_comment.mp3")
-                    polly.speak(text_labels)
-                # Step 4. What else is in the picture?
-                label_result = rekognition.detect_labels_api(s3)
-                labels = rekognition.get_labels(label_result, ct)
-                draw.annotate_labels(image, label_result)
-                if labels and not face_labels:
-                    os.system('clear')
-                    draw.display_text(labels)
-                    database.inc(labels)
-                    audio.play_mp3("labels_comment.mp3")
-                    polly.speak(labels)
+            # Step 3. Check for words
+            text_result = rekognition.detect_text_api(s3)
+            text_labels = rekognition.get_text_labels(text_result, ct)
+            draw.annotate_text(image, text_result)
+            if text_labels and not face_labels:
+                draw.display_text(text_labels)
+                audio.play_mp3("text_comment.mp3")
+                polly.speak(text_labels)
+            # Step 4. What else is in the picture?
+            label_result = rekognition.detect_labels_api(s3)
+            labels = rekognition.get_labels(label_result, ct)
+            draw.annotate_labels(image, label_result)
+            if labels and not face_labels:
+                os.system('clear')
+                draw.display_text(labels)
+                database.inc(labels)
+                audio.play_mp3("labels_comment.mp3")
+                polly.speak(labels)
             draw.save_image(image, temp_file)
             # Upload annotated image to S3
             storage.upload(temp_file)
