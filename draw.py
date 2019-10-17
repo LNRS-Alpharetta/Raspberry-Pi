@@ -26,16 +26,19 @@ def display_text(words, limit=12):
 
 
 def preview_image(image, button):
-    pygame.display.init()
-    img = pygame.image.load(image)
-    screen = pygame.display.set_mode(img.get_size())
-    screen.blit(img, (0, 0))
-    pygame.display.flip()
-    while True:
-        if button.is_pressed:
-            pygame.quit()
-            break
-        time.sleep(0.1)
+    try:
+        pygame.display.init()
+        img = pygame.image.load(image)
+        screen = pygame.display.set_mode(img.get_size())
+        screen.blit(img, (0, 0))
+        pygame.display.flip()
+        while True:
+            if button.is_pressed:
+                pygame.quit()
+                break
+            time.sleep(0.1)
+    except Exception as e:
+        print(e)
 
 
 def annotate_image(image, face, text, text_left=4, text_top=4, font=label_font,
