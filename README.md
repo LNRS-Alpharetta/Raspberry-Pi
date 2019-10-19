@@ -2,6 +2,9 @@
 
 HPCC Conference Raspberry Pi competition project
 
+## Device
+![Device](/img/imapi.jpg)
+
 ## Architecture
 ![Architecture](/img/architecture.png)
 
